@@ -10,7 +10,7 @@ void PlayGame();
 FText GetValidGuess();
 bool AskToPlayAgain();
 
-//Intialize Game instance
+//Intialize Game instance in global scope
 FBullCowGame CLGame;
 
 
@@ -27,13 +27,12 @@ void PlayGame()
 {	
 	CLGame.Reset();
 	int32 MaxTries = CLGame.GetMaxTries();
-	std::cout << MaxTries << std::endl;
 
 	// TODO change FOR to WHILE loop once we are validating guesses
 	for (int32 i = 0; i < MaxTries; i++)
 	{
 		FText Guess = GetValidGuess();
-		FBullCowCount BullCowCount = CLGame.SubmitGuess(Guess);
+		FBullCowCount BullCowCount = CLGame.SubmitValidGuess(Guess);
 		// Print num of bulls/cows
 		std::cout << "Bulls: " << BullCowCount.Bulls << " / " << "Cows: " << BullCowCount.Cows << "\n\n";
 	}
@@ -43,21 +42,22 @@ void PlayGame()
 void PrintIntro() 
 {
 	const int32 WORD_LENGTH = CLGame.GetHiddenWordLength();
-	std::cout << "The WORD LENGTH is " << WORD_LENGTH << ".. try guessing the isogram!" << std::endl;
+	std::cout << std::endl << "~~ The WORD LENGTH is " << WORD_LENGTH << ".. try guessing the isogram! ~~" << std::endl;
 	return;
 }
 
 // loop continually until user gives a valid guess
 FText GetValidGuess()
 {
-	EGuessStatus Status = EGuessStatus::Invalid;
+	FText Guess = "";
+	EGuessStatus Status = EGuessStatus::Invalid; // set ENUMerator for while loop condition
 	do {
 		int32 CurrentTry = CLGame.GetCurrentTry();
 		std::cout << "Try #" << CurrentTry << ": ";
-		FText Guess = "";
+		
 		std::getline(std::cin, Guess);
 
-		EGuessStatus Status = CLGame.CheckGuessValidity(Guess);
+		Status = CLGame.CheckGuessValidity(Guess);
 
 		switch (Status)
 		{
@@ -71,9 +71,11 @@ FText GetValidGuess()
 			std::cout << "Please enter lowercase letters only.\n";
 			break;
 		default:
-			return Guess;
+			// assume Guess is valid
+			break;
 		}
 	} while (Status != EGuessStatus::OK);
+	return Guess;
 }
 
 bool AskToPlayAgain()

@@ -33,7 +33,7 @@ public:
 	EGuessStatus CheckGuessValidity(FString) const; // TODO create richer return val
 
 	void Reset(); // TODO create richer return val
-	FBullCowCount SubmitGuess(FString);
+	FBullCowCount SubmitValidGuess(FString);
 
 private: // see constructor for initialization 
 	int32 MyCurrentTry;
