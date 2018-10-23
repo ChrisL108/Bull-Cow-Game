@@ -2,9 +2,12 @@
 #include <string>
 #include "FBullCowGame.h"
 
+using FText = std::string;
+using int32 = int32;
+
 void PrintIntro();
 void PlayGame();
-std::string GetGuess();
+FText GetGuess();
 bool AskToPlayAgain();
 
 //Intialize Game instance
@@ -23,41 +26,44 @@ int main() {
 void PlayGame()
 {	
 	CLGame.Reset();
-	int MaxTries = CLGame.GetMaxTries();
+	int32 MaxTries = CLGame.GetMaxTries();
 	std::cout << MaxTries << std::endl;
 	// TODO change FOR to WHILE loop once we are validating guesses
-	for (int i = 0; i < MaxTries; i++)
+	for (int32 i = 0; i < MaxTries; i++)
 	{
-		std::string Guess = GetGuess();
-		// TODO Check guess validity
-			//  -- CLGame.CheckGuessValidity(Guess)
-			// Submit valid response to game instance
-			// Print num of bulls/cows
+		FText Guess = GetGuess();
 
-		std::cout << "Your guess was: " << Guess << std::endl << std::endl;
+		// TODO Check guess validity
+		FBullCowCount BullCowCount = CLGame.SubmitGuess(Guess);
+		
+		// Print num of bulls/cows
+		std::cout << "Bulls: " << BullCowCount.Bulls;
+		std::cout << "Cows: " << BullCowCount.Cows << std::endl;
+
+	
 	}
 	// TODO summarize game
 }
 
 void PrintIntro() 
 {
-	constexpr int WORD_LENGTH = 5;
+	constexpr int32 WORD_LENGTH = 5;
 	std::cout << "Welcome to Bulls and Cows, an OKAY word game... I guess" << std::endl;
 	return;
 }
 
-std::string GetGuess() 
+FText GetGuess() 
 {
-	int CurrentTry = CLGame.GetCurrentTry();
+	int32 CurrentTry = CLGame.GetCurrentTry();
 	std::cout << "Try #" << CurrentTry << ": "; 
-	std::string Guess = "";
+	FText Guess = "";
 	std::getline(std::cin, Guess);
 	return Guess;
 }
 
 bool AskToPlayAgain()
 {
-	std::string Answer = "";
+	FText Answer = "";
 	std::cout << "Would you like to play again? (y/n) ";
 	getline(std::cin, Answer);
 	if ((Answer[0] == 'y') || Answer[0] == 'Y')

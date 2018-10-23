@@ -2,19 +2,33 @@
 
 #include <string>
 
+using FString = std::string;
+using int32 = int;
 
-class FBullCowGame {
+// All values initialized to 0
+struct FBullCowCount
+{
+	int32 Bulls = 0;
+	int32 Cows = 0;
+};
+
+class FBullCowGame 
+{
 public:
 	FBullCowGame();
 
-	int GetMaxTries() const;
-	int GetCurrentTry() const;
+	int32 GetMaxTries() const;
+	int32 GetCurrentTry() const;
 	bool IsGameWon() const;
 
 	void Reset(); // TODO create richer return val
-	bool CheckGuessValidity(std::string); // TODO create richer return val
+	bool CheckGuessValidity(FString); // TODO create richer return val
+
+	// TODO method for counting bulls and cows and incrementing 'Try' number
+	FBullCowCount SubmitGuess(FString);
 
 private: // see constructor for initialization 
-	int MyCurrentTry;
-	int MyMaxTries;
+	int32 MyCurrentTry;
+	int32 MyMaxTries;
+	FString MyHiddenWord;
 };
