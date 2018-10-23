@@ -3,7 +3,7 @@
 #include "FBullCowGame.h"
 
 using FText = std::string;
-using int32 = int32;
+using int32 = int;
 
 void PrintIntro();
 void PlayGame();
@@ -28,15 +28,17 @@ void PlayGame()
 	CLGame.Reset();
 	int32 MaxTries = CLGame.GetMaxTries();
 
-	// TODO change FOR to WHILE loop once we are validating guesses
-	for (int32 i = 0; i < MaxTries; i++)
+	// loop asking for guesses or while the game
+	// is NOT won && there are still tries remaining
+	while (!CLGame.IsGameWon() && CLGame.GetCurrentTry() <= MaxTries) 
 	{
 		FText Guess = GetValidGuess();
 		FBullCowCount BullCowCount = CLGame.SubmitValidGuess(Guess);
 		// Print num of bulls/cows
 		std::cout << "Bulls: " << BullCowCount.Bulls << " / " << "Cows: " << BullCowCount.Cows << "\n\n";
 	}
-	// TODO summarize game
+
+
 }
 
 void PrintIntro() 
