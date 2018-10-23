@@ -28,6 +28,7 @@ void PlayGame()
 	CLGame.Reset();
 	int32 MaxTries = CLGame.GetMaxTries();
 	std::cout << MaxTries << std::endl;
+
 	// TODO change FOR to WHILE loop once we are validating guesses
 	for (int32 i = 0; i < MaxTries; i++)
 	{
@@ -37,8 +38,8 @@ void PlayGame()
 		FBullCowCount BullCowCount = CLGame.SubmitGuess(Guess);
 		
 		// Print num of bulls/cows
-		std::cout << "Bulls: " << BullCowCount.Bulls;
-		std::cout << "Cows: " << BullCowCount.Cows << std::endl;
+		std::cout << "Bulls: " << BullCowCount.Bulls << " -- "
+				  << "Cows: " << BullCowCount.Cows << std::endl;
 
 	
 	}
@@ -47,8 +48,9 @@ void PlayGame()
 
 void PrintIntro() 
 {
-	constexpr int32 WORD_LENGTH = 5;
-	std::cout << "Welcome to Bulls and Cows, an OKAY word game... I guess" << std::endl;
+	const int32 WORD_LENGTH = CLGame.GetHiddenWordLength();
+	std::cout << "The WORD LENGTH is " << WORD_LENGTH 
+			  << ".. try guessing the isogram!" << std::endl;
 	return;
 }
 
