@@ -51,7 +51,7 @@ FText GetValidGuess()
 	EGuessStatus Status = EGuessStatus::Invalid; // set ENUMerator for while loop condition
 	do {
 		int32 CurrentTry = CLGame.GetCurrentTry();
-		std::cout << "Try #" << CurrentTry << ": ";
+		std::cout << std::endl << "- Attempt #" << CurrentTry << ":  ";
 		
 		std::getline(std::cin, Guess);
 
