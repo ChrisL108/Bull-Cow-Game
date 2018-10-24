@@ -23,14 +23,13 @@ enum EGuessStatus {
 class FBullCowGame 
 {
 public:
-	FBullCowGame();
-
+	FBullCowGame(); // constructor 
 	int32 GetMaxTries() const;
-	int32 GetCurrentTry() const;
-	int32 GetHiddenWordLength() const;
-	bool IsGameWon() const;
-	int32 RemainingTries() const;
-	
+	int32 GetCurrentTry() const; 
+	int32 GetHiddenWordLength() const; 
+	int32 GetRemainingTries() const; 
+	bool IsGameWon() const; 
+
 	EGuessStatus CheckGuessValidity(FString) const;
 
 	void Reset(); // TODO create richer return val

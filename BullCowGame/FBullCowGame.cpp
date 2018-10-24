@@ -5,19 +5,18 @@
 
 using int32 = int;
 
-FBullCowGame::FBullCowGame() { Reset(); } //constructor
-
-int32 FBullCowGame::GetMaxTries() const { return MyMaxTries; }
-
-int32 FBullCowGame::GetCurrentTry() const { return MyCurrentTry; }
-
-int32 FBullCowGame::GetHiddenWordLength() const { return MyHiddenWord.length(); }
+FBullCowGame::FBullCowGame() { Reset(); } // default constructor
 
 bool FBullCowGame::IsGameWon() const { return bGameIsWon; }
 
-int32 FBullCowGame::RemainingTries() const
-{
-	return MyMaxTries - MyCurrentTry;
+int32 FBullCowGame::GetCurrentTry() const { return MyCurrentTry; }
+int32 FBullCowGame::GetHiddenWordLength() const { return MyHiddenWord.length(); }
+int32 FBullCowGame::GetRemainingTries() const { return MyMaxTries - MyCurrentTry; }
+int32 FBullCowGame::GetMaxTries() const { 
+	TMap<int32, int32> WordLengthToMaxTries {
+		{3, 5}, {4, 7}, {5, 10}, {6, 12}, {7, 15}
+	};
+	return (WordLengthToMaxTries[GetHiddenWordLength()]);
 }
 
 bool FBullCowGame::IsLowercase(FString Guess) const
@@ -29,7 +28,6 @@ bool FBullCowGame::IsLowercase(FString Guess) const
 	}
 	return true;
 }
-
 bool FBullCowGame::IsIsogram(FString Word) const
 {
 	if (Word.length() <= 1) { return true; } // word with 1-2 characters are isograms by nature
@@ -46,10 +44,11 @@ bool FBullCowGame::IsIsogram(FString Word) const
 	return true;
 }
 
+
 void FBullCowGame::Reset()
 {
 	constexpr int32 MAX_TRIES = 5;
-	const FString HIDDEN_WORD = "planet";
+	const FString HIDDEN_WORD = "halos";
 
 	MyMaxTries = MAX_TRIES;
 	MyHiddenWord = HIDDEN_WORD;

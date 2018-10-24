@@ -37,7 +37,7 @@ void PlayGame()
 		FBullCowCount BullCowCount = CLGame.SubmitValidGuess(Guess);
 		// Print num of bulls/cows
 		std::cout << "   Bulls: [" << BullCowCount.Bulls << "], " << "Cows: [" << BullCowCount.Cows << "] -- " ;
-		std::cout << "(" << CLGame.RemainingTries() + 1 << " attempts left)\n\n";
+		std::cout << "(" << CLGame.GetRemainingTries() + 1 << " attempts left)\n\n";
 	}
 	PrintGameResults(); // Let the player know if they won or lost
 	return;
