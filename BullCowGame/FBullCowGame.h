@@ -29,6 +29,7 @@ public:
 	int32 GetCurrentTry() const;
 	int32 GetHiddenWordLength() const;
 	bool IsGameWon() const;
+	int32 RemainingTries() const;
 	
 	EGuessStatus CheckGuessValidity(FString) const;
 

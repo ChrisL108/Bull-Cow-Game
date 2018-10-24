@@ -15,6 +15,11 @@ int32 FBullCowGame::GetHiddenWordLength() const { return MyHiddenWord.length(); 
 
 bool FBullCowGame::IsGameWon() const { return bGameIsWon; }
 
+int32 FBullCowGame::RemainingTries() const
+{
+	return MyMaxTries - MyCurrentTry;
+}
+
 bool FBullCowGame::IsLowercase(FString Guess) const
 {
 	for (auto Letter : Guess) {
@@ -43,7 +48,7 @@ bool FBullCowGame::IsIsogram(FString Word) const
 
 void FBullCowGame::Reset()
 {
-	constexpr int32 MAX_TRIES = 6;
+	constexpr int32 MAX_TRIES = 5;
 	const FString HIDDEN_WORD = "planet";
 
 	MyMaxTries = MAX_TRIES;

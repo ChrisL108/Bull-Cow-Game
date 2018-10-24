@@ -9,7 +9,7 @@ void PrintIntro();
 void PlayGame();
 FText GetValidGuess();
 bool AskToPlayAgain();
-void PrintGameSummary();
+void PrintGameResults();
 
 //Intialize Game instance in global scope
 FBullCowGame CLGame;
@@ -36,9 +36,10 @@ void PlayGame()
 		FText Guess = GetValidGuess();
 		FBullCowCount BullCowCount = CLGame.SubmitValidGuess(Guess);
 		// Print num of bulls/cows
-		std::cout << "Bulls: " << BullCowCount.Bulls << " / " << "Cows: " << BullCowCount.Cows << "\n\n";
+		std::cout << "   Bulls: [" << BullCowCount.Bulls << "], " << "Cows: [" << BullCowCount.Cows << "] -- " ;
+		std::cout << "(" << CLGame.RemainingTries() + 1 << " attempts left)\n\n";
 	}
-	PrintGameSummary(); // Let the player know if they won or lost
+	PrintGameResults(); // Let the player know if they won or lost
 	return;
 }
 
@@ -51,7 +52,7 @@ FText GetValidGuess()
 	EGuessStatus Status = EGuessStatus::Invalid; // set ENUMerator for while loop condition
 	do {
 		int32 CurrentTry = CLGame.GetCurrentTry();
-		std::cout << std::endl << "- Attempt #" << CurrentTry << ":  ";
+		std::cout << std::endl << "-Attempt #" << CurrentTry << ":  ";
 		
 		std::getline(std::cin, Guess);
 
@@ -60,13 +61,13 @@ FText GetValidGuess()
 		switch (Status)
 		{
 		case Not_Isogram:
-			std::cout << "Entry is NOT an Isogram (no repeating letters) \n";
+			std::cout << "Entry is NOT an Isogram (no repeating letters) \n\n";
 			break;
 		case Wrong_Length:
-			std::cout << "Please enter a " << CLGame.GetHiddenWordLength() << " letter word.\n";
+			std::cout << "Please enter a " << CLGame.GetHiddenWordLength() << " letter word.\n\n";
 			break;
 		case Not_Lowercase:
-			std::cout << "Please enter lowercase letters only.\n";
+			std::cout << "Please enter lowercase letters only.\n\n";
 			break;
 		default:
 			// assume Guess is valid
@@ -79,7 +80,17 @@ FText GetValidGuess()
 void PrintIntro()
 {
 	const int32 WORD_LENGTH = CLGame.GetHiddenWordLength();
-	std::cout << std::endl << "~~ The WORD LENGTH is " << WORD_LENGTH << ".. try guessing the isogram! ~~" << std::endl;
+	std::cout << "          }   {         ___ " << std::endl;
+	std::cout << "          (o o)        (o o) " << std::endl;
+	std::cout << "   /-------\\ /          \\ /-------\\ " << std::endl;
+	std::cout << "  / | BULL |O            O| COW  | \\_ " << std::endl;
+	std::cout << " *  |-q_p--- |              |---\\/-| \* " << std::endl;
+	std::cout << "    ^  U     ^              ^       ^ " << std::endl;
+	std::cout << std::endl << "~~ The WORD LENGTH is " << WORD_LENGTH << 
+				  "...  you get " << CLGame.GetMaxTries() << " attempts ~~\n\n";
+	std::cout << "||Game Rules" << std::endl;
+	std::cout << " |BULL = letter is correct and in the CORRECT spot.\n";
+	std::cout << " |COW  = the letter is correct but is in the WRONG spot\n";
 	return;
 }
 bool AskToPlayAgain()
@@ -92,7 +103,7 @@ bool AskToPlayAgain()
 	else 
 	{ return false; }
 }
-void PrintGameSummary()
+void PrintGameResults()
 {
 	if (CLGame.IsGameWon()) {
 		std::cout << "\n~~~~~~~~~~~~~~~~~~~~~\n";
