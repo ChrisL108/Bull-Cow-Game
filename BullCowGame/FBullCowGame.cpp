@@ -1,3 +1,5 @@
+#pragma once	
+
 #include "FBullCowGame.h"
 #include <iostream>
 #include <map>
@@ -48,7 +50,7 @@ bool FBullCowGame::IsIsogram(FString Word) const
 void FBullCowGame::Reset()
 {
 	constexpr int32 MAX_TRIES = 5;
-	const FString HIDDEN_WORD = "halos";
+	const FString HIDDEN_WORD = "halos";  // this MUST be an isogram  TODO create map of isograms, use random
 
 	MyMaxTries = MAX_TRIES;
 	MyHiddenWord = HIDDEN_WORD;

@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 #include <string>
 #include "FBullCowGame.h"
@@ -37,7 +39,7 @@ void PlayGame()
 		FBullCowCount BullCowCount = CLGame.SubmitValidGuess(Guess);
 		// Print num of bulls/cows
 		std::cout << "   Bulls: [" << BullCowCount.Bulls << "], " << "Cows: [" << BullCowCount.Cows << "] -- " ;
-		std::cout << "(" << CLGame.GetRemainingTries() + 1 << " attempts left)\n\n";
+		std::cout << "(" << CLGame.GetMaxTries() - CLGame.GetCurrentTry() << " attempts left)\n\n";
 	}
 	PrintGameResults(); // Let the player know if they won or lost
 	return;
@@ -111,7 +113,7 @@ void PrintGameResults()
 		std::cout << "\n~~~~~~~~~~~~~~~~~~~~~\n\n";
 	}
 	else {
-		std::cout << "\nSUCKS TO SUCK\n...loser\n\n";
+		std::cout << "\nWell... You Lost...\n";
 	}
 	return;
 }
