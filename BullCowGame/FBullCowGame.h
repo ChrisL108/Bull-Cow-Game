@@ -29,7 +29,6 @@ public:
 	int32 GetCurrentTry() const;
 	int32 GetHiddenWordLength() const;
 	bool IsGameWon() const;
-	bool IsLowercase(FString Word) const;
 	
 	EGuessStatus CheckGuessValidity(FString) const;
 
@@ -43,5 +42,6 @@ private: // see constructor for initialization
 	bool bGameIsWon;
 
 	// 'auto' type means the compiler decides the type for us
-	bool IsIsogram(FString Word) const;  
+	bool IsIsogram(FString) const;  
+	bool IsLowercase(FString) const;
 };

@@ -18,10 +18,9 @@ bool FBullCowGame::IsGameWon() const { return bGameIsWon; }
 bool FBullCowGame::IsLowercase(FString Guess) const
 {
 	for (auto Letter : Guess) {
-		if (islower(Letter)) {
-			continue;
+		if (!islower(Letter)) {
+			return false;
 		}
-		else { return false; }
 	}
 	return true;
 }
