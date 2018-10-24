@@ -9,6 +9,7 @@ void PrintIntro();
 void PlayGame();
 FText GetValidGuess();
 bool AskToPlayAgain();
+void PrintGameSummary();
 
 //Intialize Game instance in global scope
 FBullCowGame CLGame;
@@ -37,16 +38,11 @@ void PlayGame()
 		// Print num of bulls/cows
 		std::cout << "Bulls: " << BullCowCount.Bulls << " / " << "Cows: " << BullCowCount.Cows << "\n\n";
 	}
-
-
-}
-
-void PrintIntro() 
-{
-	const int32 WORD_LENGTH = CLGame.GetHiddenWordLength();
-	std::cout << std::endl << "~~ The WORD LENGTH is " << WORD_LENGTH << ".. try guessing the isogram! ~~" << std::endl;
+	PrintGameSummary(); // Let the player know if they won or lost
 	return;
 }
+
+
 
 // loop continually until user gives a valid guess
 FText GetValidGuess()
@@ -64,7 +60,7 @@ FText GetValidGuess()
 		switch (Status)
 		{
 		case Not_Isogram:
-			std::cout << "Please enter an Isogram.\n";
+			std::cout << "Entry is NOT an Isogram (no repeating letters) \n";
 			break;
 		case Wrong_Length:
 			std::cout << "Please enter a " << CLGame.GetHiddenWordLength() << " letter word.\n";
@@ -80,13 +76,31 @@ FText GetValidGuess()
 	return Guess;
 }
 
+void PrintIntro()
+{
+	const int32 WORD_LENGTH = CLGame.GetHiddenWordLength();
+	std::cout << std::endl << "~~ The WORD LENGTH is " << WORD_LENGTH << ".. try guessing the isogram! ~~" << std::endl;
+	return;
+}
 bool AskToPlayAgain()
 {
 	FText Answer = "";
-	std::cout << "Would you like to play again? (y/n) ";
+	std::cout << "\n\nWould you like to play again, with the same hidden word? (y/n) ";
 	getline(std::cin, Answer);
 	if ((Answer[0] == 'y') || Answer[0] == 'Y')
 	{ return true; }
 	else 
 	{ return false; }
+}
+void PrintGameSummary()
+{
+	if (CLGame.IsGameWon()) {
+		std::cout << "\n~~~~~~~~~~~~~~~~~~~~~\n";
+		std::cout << "You have WON!!! Good Job!";
+		std::cout << "\n~~~~~~~~~~~~~~~~~~~~~\n\n";
+	}
+	else {
+		std::cout << "\nSUCKS TO SUCK\n...loser\n\n";
+	}
+	return;
 }

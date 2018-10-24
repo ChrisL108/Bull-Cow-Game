@@ -29,8 +29,9 @@ public:
 	int32 GetCurrentTry() const;
 	int32 GetHiddenWordLength() const;
 	bool IsGameWon() const;
-
-	EGuessStatus CheckGuessValidity(FString) const; // TODO create richer return val
+	bool IsLowercase(FString Word) const;
+	
+	EGuessStatus CheckGuessValidity(FString) const;
 
 	void Reset(); // TODO create richer return val
 	FBullCowCount SubmitValidGuess(FString);
@@ -40,4 +41,7 @@ private: // see constructor for initialization
 	int32 MyMaxTries;
 	FString MyHiddenWord;
 	bool bGameIsWon;
+
+	// 'auto' type means the compiler decides the type for us
+	bool IsIsogram(FString Word) const;  
 };
