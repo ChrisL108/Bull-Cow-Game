@@ -41,7 +41,6 @@ bool FBullCowGame::IsIsogram(FString Word) const
 	return true;
 }
 
-
 void FBullCowGame::Reset()
 {
 	constexpr int32 MAX_TRIES = 6;
